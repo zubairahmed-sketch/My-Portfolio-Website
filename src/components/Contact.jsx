@@ -35,10 +35,10 @@ const Contact = () => {
     setError('')
 
     try {
-      // Send email using EmailJS
-      const result = await emailjs.send(
-        'service_bm8u3cq', // Replace with your Service ID
-        'template_1yl4n8j', // Replace with your Template ID
+      // Send email to you (admin)
+      await emailjs.send(
+        'service_bm8u3cq',
+        'template_yghu34e',
         {
           from_name: formData.name,
           from_email: formData.email,
@@ -48,13 +48,22 @@ const Contact = () => {
         }
       )
 
-      if (result.text === 'OK') {
-        setSubmitted(true)
-        setFormData({ name: '', email: '', subject: '', message: '' })
-        setTimeout(() => {
-          setSubmitted(false)
-        }, 5000)
-      }
+      // Send auto-reply to visitor
+      await emailjs.send(
+        'service_bm8u3cq',
+        'template_v51rv3f',
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject
+        }
+      )
+
+      setSubmitted(true)
+      setFormData({ name: '', email: '', subject: '', message: '' })
+      setTimeout(() => {
+        setSubmitted(false)
+      }, 5000)
     } catch (err) {
       console.error('Error sending email:', err)
       setError('Failed to send message. Please try again or contact directly.')
