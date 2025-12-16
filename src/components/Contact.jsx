@@ -44,7 +44,7 @@ const Contact = () => {
     try {
       // Send email to you (admin)
       const adminEmailResult = await emailjs.send(
-        'service_bm8u3cq',
+        'service_7sqv84v',
         'template_yghu34e',
         {
           from_name: formData.name,
@@ -59,7 +59,7 @@ const Contact = () => {
         // Send auto-reply to visitor
         try {
           await emailjs.send(
-            'service_bm8u3cq',
+            'service_7sqv84v',
             'template_v51rv3f',
             {
               from_name: formData.name,
