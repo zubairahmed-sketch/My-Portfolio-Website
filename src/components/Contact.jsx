@@ -17,7 +17,14 @@ const Contact = () => {
 
   // Initialize EmailJS
   useEffect(() => {
-    emailjs.init('bKTvVADiDwR7Xjg-Y') // Replace with your actual Public Key from EmailJS
+    try {
+      emailjs.init({
+        publicKey: 'bKTvVADiDwR7Xjg-Y',
+        blockHeadless: false
+      })
+    } catch (error) {
+      console.error('EmailJS initialization error:', error)
+    }
   }, [])
 
   const handleChange = (e) => {
@@ -36,7 +43,7 @@ const Contact = () => {
 
     try {
       // Send email to you (admin)
-      await emailjs.send(
+      const adminEmailResult = await emailjs.send(
         'service_bm8u3cq',
         'template_yghu34e',
         {
@@ -48,24 +55,31 @@ const Contact = () => {
         }
       )
 
-      // Send auto-reply to visitor
-      await emailjs.send(
-        'service_bm8u3cq',
-        'template_v51rv3f',
-        {
-          from_name: formData.name,
-          from_email: formData.email,
-          subject: formData.subject
+      if (adminEmailResult.status === 200) {
+        // Send auto-reply to visitor
+        try {
+          await emailjs.send(
+            'service_bm8u3cq',
+            'template_v51rv3f',
+            {
+              from_name: formData.name,
+              from_email: formData.email,
+              subject: formData.subject
+            }
+          )
+        } catch (autoReplyError) {
+          console.warn('Auto-reply failed but main email sent:', autoReplyError)
+          // Don't fail the entire submission if auto-reply fails
         }
-      )
 
-      setSubmitted(true)
-      setFormData({ name: '', email: '', subject: '', message: '' })
-      setTimeout(() => {
-        setSubmitted(false)
-      }, 5000)
+        setSubmitted(true)
+        setFormData({ name: '', email: '', subject: '', message: '' })
+        setTimeout(() => {
+          setSubmitted(false)
+        }, 5000)
+      }
     } catch (err) {
-      console.error('Error sending email:', err)
+      console.error('EmailJS Error Details:', err)
       setError('Failed to send message. Please try again or contact directly.')
     } finally {
       setLoading(false)
