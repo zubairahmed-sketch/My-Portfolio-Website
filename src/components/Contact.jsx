@@ -1,0 +1,219 @@
+import React, { useState } from 'react'
+import { FiSend, FiMail, FiPhone } from 'react-icons/fi'
+import { motion } from 'framer-motion'
+
+const Contact = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  })
+
+  const [submitted, setSubmitted] = useState(false)
+
+  const handleChange = (e) => {
+    const { name, value } = e.target
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }))
+  }
+
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    // You can add form submission logic here
+    console.log('Form submitted:', formData)
+    setSubmitted(true)
+    setTimeout(() => {
+      setSubmitted(false)
+      setFormData({ name: '', email: '', subject: '', message: '' })
+    }, 3000)
+  }
+
+  return (
+    <section id="contact" className="py-20 px-4 sm:px-6 lg:px-8 bg-dark/50">
+      <div className="max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          transition={{ duration: 0.8 }}
+          viewport={{ once: true }}
+          className="mb-16 text-center"
+        >
+          <h2 className="text-4xl md:text-5xl font-bold mb-4">
+            Get In <span className="bg-gradient-to-r from-primary to-secondary bg-clip-text text-transparent">Touch</span>
+          </h2>
+          <p className="text-lg text-gray-400 max-w-2xl mx-auto">
+            Have a project in mind? Let's discuss how I can help you build something amazing.
+          </p>
+          <div className="w-20 h-1 bg-gradient-to-r from-primary to-secondary rounded-full mt-4 mx-auto"></div>
+        </motion.div>
+
+        <div className="grid md:grid-cols-2 gap-12">
+          {/* Contact Info */}
+          <motion.div
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <h3 className="text-2xl font-bold mb-8">Contact Information</h3>
+
+            <motion.a
+              href="mailto:za0183625@gmail.com"
+              whileHover={{ x: 10 }}
+              className="flex items-center gap-4 mb-8 p-4 rounded-lg border border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all"
+            >
+              <div className="p-3 rounded-lg bg-primary/20">
+                <FiMail size={24} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Email</p>
+                <p className="font-semibold">za0183625@gmail.com</p>
+              </div>
+            </motion.a>
+
+            <motion.a
+              href="tel:+923072523709"
+              whileHover={{ x: 10 }}
+              className="flex items-center gap-4 mb-8 p-4 rounded-lg border border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all"
+            >
+              <div className="p-3 rounded-lg bg-primary/20">
+                <FiPhone size={24} className="text-primary" />
+              </div>
+              <div>
+                <p className="text-sm text-gray-400">Phone</p>
+                <p className="font-semibold">+92 3072523709</p>
+              </div>
+            </motion.a>
+
+            {/* Quick Links */}
+            <div className="mt-12">
+              <h4 className="text-lg font-bold mb-6">Connect With Me</h4>
+              <div className="flex gap-4">
+                <motion.a
+                  href="https://github.com/zubairahmed-sketch"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -5 }}
+                  className="p-4 rounded-lg border border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all"
+                  title="GitHub"
+                >
+                  <span className="text-primary font-semibold">GitHub</span>
+                </motion.a>
+                <motion.a
+                  href="https://www.linkedin.com/in/zubair-ahmed-3285a8285"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -5 }}
+                  className="p-4 rounded-lg border border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all"
+                  title="LinkedIn"
+                >
+                  <span className="text-primary font-semibold">LinkedIn</span>
+                </motion.a>
+                <motion.a
+                  href="https://www.fiverr.com/s/BRZE53l"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ y: -5 }}
+                  className="p-4 rounded-lg border border-primary/30 hover:border-primary/60 hover:bg-primary/10 transition-all"
+                  title="Fiverr"
+                >
+                  <span className="text-primary font-semibold">Fiverr</span>
+                </motion.a>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Contact Form */}
+          <motion.div
+            initial={{ opacity: 0, x: 50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 0.8 }}
+            viewport={{ once: true }}
+          >
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div>
+                <label className="block text-sm font-semibold mb-2">Name</label>
+                <motion.input
+                  type="text"
+                  name="name"
+                  value={formData.name}
+                  onChange={handleChange}
+                  required
+                  placeholder="Your Name"
+                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-primary/30 focus:border-primary/60 focus:outline-none transition-all placeholder-gray-500"
+                  whileFocus={{ scale: 1.02 }}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2">Email</label>
+                <motion.input
+                  type="email"
+                  name="email"
+                  value={formData.email}
+                  onChange={handleChange}
+                  required
+                  placeholder="your.email@example.com"
+                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-primary/30 focus:border-primary/60 focus:outline-none transition-all placeholder-gray-500"
+                  whileFocus={{ scale: 1.02 }}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2">Subject</label>
+                <motion.input
+                  type="text"
+                  name="subject"
+                  value={formData.subject}
+                  onChange={handleChange}
+                  required
+                  placeholder="Project Discussion"
+                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-primary/30 focus:border-primary/60 focus:outline-none transition-all placeholder-gray-500"
+                  whileFocus={{ scale: 1.02 }}
+                />
+              </div>
+
+              <div>
+                <label className="block text-sm font-semibold mb-2">Message</label>
+                <motion.textarea
+                  name="message"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                  placeholder="Tell me about your project..."
+                  rows="5"
+                  className="w-full px-4 py-3 rounded-lg bg-dark/50 border border-primary/30 focus:border-primary/60 focus:outline-none transition-all placeholder-gray-500 resize-none"
+                  whileFocus={{ scale: 1.02 }}
+                ></motion.textarea>
+              </div>
+
+              <motion.button
+                type="submit"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-full px-6 py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-primary/50 transition-all"
+              >
+                Send Message <FiSend />
+              </motion.button>
+
+              {submitted && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center font-semibold"
+                >
+                  ✓ Message sent successfully! I'll get back to you soon.
+                </motion.div>
+              )}
+            </form>
+          </motion.div>
+        </div>
+      </div>
+    </section>
+  )
+}
+
+export default Contact
