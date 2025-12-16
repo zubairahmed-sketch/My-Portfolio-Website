@@ -1,6 +1,7 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { FiSend, FiMail, FiPhone } from 'react-icons/fi'
 import { motion } from 'framer-motion'
+import emailjs from '@emailjs/browser'
 
 const Contact = () => {
   const [formData, setFormData] = useState({
@@ -11,6 +12,13 @@ const Contact = () => {
   })
 
   const [submitted, setSubmitted] = useState(false)
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState('')
+
+  // Initialize EmailJS
+  useEffect(() => {
+    emailjs.init('bKTvVADiDwR7Xjg-Y') // Replace with your actual Public Key from EmailJS
+  }, [])
 
   const handleChange = (e) => {
     const { name, value } = e.target
@@ -18,17 +26,41 @@ const Contact = () => {
       ...prev,
       [name]: value
     }))
+    setError('') // Clear error when user starts typing
   }
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    // You can add form submission logic here
-    console.log('Form submitted:', formData)
-    setSubmitted(true)
-    setTimeout(() => {
-      setSubmitted(false)
-      setFormData({ name: '', email: '', subject: '', message: '' })
-    }, 3000)
+    setLoading(true)
+    setError('')
+
+    try {
+      // Send email using EmailJS
+      const result = await emailjs.send(
+        'service_bm8u3cq', // Replace with your Service ID
+        'template_1yl4n8j', // Replace with your Template ID
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          subject: formData.subject,
+          message: formData.message,
+          to_email: 'za0183625@gmail.com'
+        }
+      )
+
+      if (result.text === 'OK') {
+        setSubmitted(true)
+        setFormData({ name: '', email: '', subject: '', message: '' })
+        setTimeout(() => {
+          setSubmitted(false)
+        }, 5000)
+      }
+    } catch (err) {
+      console.error('Error sending email:', err)
+      setError('Failed to send message. Please try again or contact directly.')
+    } finally {
+      setLoading(false)
+    }
   }
 
   return (
@@ -192,11 +224,16 @@ const Contact = () => {
 
               <motion.button
                 type="submit"
-                whileHover={{ scale: 1.05 }}
+                disabled={loading}
+                whileHover={{ scale: loading ? 1 : 1.05 }}
                 whileTap={{ scale: 0.95 }}
-                className="w-full px-6 py-3 bg-gradient-to-r from-primary to-secondary rounded-lg font-semibold flex items-center justify-center gap-2 hover:shadow-lg hover:shadow-primary/50 transition-all"
+                className={`w-full px-6 py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-all ${
+                  loading
+                    ? 'bg-gray-500 cursor-not-allowed'
+                    : 'bg-gradient-to-r from-primary to-secondary hover:shadow-lg hover:shadow-primary/50'
+                }`}
               >
-                Send Message <FiSend />
+                {loading ? 'Sending...' : 'Send Message'} <FiSend />
               </motion.button>
 
               {submitted && (
@@ -206,6 +243,16 @@ const Contact = () => {
                   className="p-4 bg-green-500/20 border border-green-500/50 rounded-lg text-green-400 text-center font-semibold"
                 >
                   ✓ Message sent successfully! I'll get back to you soon.
+                </motion.div>
+              )}
+
+              {error && (
+                <motion.div
+                  initial={{ opacity: 0, y: -10 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  className="p-4 bg-red-500/20 border border-red-500/50 rounded-lg text-red-400 text-center font-semibold"
+                >
+                  ✗ {error}
                 </motion.div>
               )}
             </form>
