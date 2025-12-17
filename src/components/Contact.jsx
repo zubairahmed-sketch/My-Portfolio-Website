@@ -63,9 +63,8 @@ const Contact = () => {
             'template_v51rv3f',
             {
               from_name: formData.name,
-              from_email: formData.email,
-              subject: formData.subject,
-              to_email: formData.email  // Send auto-reply to visitor's email
+              email: formData.email,  // Use 'email' key instead
+              subject: formData.subject
             }
           )
         } catch (autoReplyError) {
