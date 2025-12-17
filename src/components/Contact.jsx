@@ -19,7 +19,7 @@ const Contact = () => {
   useEffect(() => {
     try {
       emailjs.init({
-        publicKey: 'bKTvVADiDwR7Xjg-Y',
+        publicKey: 'DQLMUnlqWzW33KGlR',
         blockHeadless: false
       })
     } catch (error) {
