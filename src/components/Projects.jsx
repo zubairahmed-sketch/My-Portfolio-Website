@@ -1,64 +1,88 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { FiGithub, FiExternalLink } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 
 const Projects = () => {
-  const projects = [
+  const [projects, setProjects] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchProjects()
+  }, [])
+
+  const fetchProjects = async () => {
+    try {
+      const response = await fetch('/api/projects')
+      const data = await response.json()
+      if (data.success) {
+        setProjects(data.data)
+      }
+    } catch (error) {
+      console.error('Failed to fetch projects:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Fallback projects if database is empty
+  const defaultProjects = [
     {
       id: 1,
       title: 'Restaurant Management System',
       description: 'A comprehensive Java desktop application for managing restaurant operations including inventory, orders, and staff management with MySQL database.',
       image: '🍽️',
-      tech: ['Java', 'Swing', 'JDBC', 'MySQL'],
-      link: '#',
-      github: '#'
+      technologies: ['Java', 'Swing', 'JDBC', 'MySQL'],
+      liveLink: '#',
+      codeLink: '#'
     },
     {
       id: 2,
       title: 'Wapda Management System',
       description: 'Java desktop application for utility management handling electricity distribution, billing, and customer services with robust MySQL backend.',
       image: '⚡',
-      tech: ['Java', 'Swing', 'JDBC', 'MySQL'],
-      link: '#',
-      github: '#'
+      technologies: ['Java', 'Swing', 'JDBC', 'MySQL'],
+      liveLink: '#',
+      codeLink: '#'
     },
     {
       id: 3,
       title: 'Civic Eye Issue Reporting',
       description: 'Flutter mobile application for community-driven civic issue reporting and tracking with Supabase backend for real-time updates.',
       image: '👁️',
-      tech: ['Flutter', 'Dart', 'Supabase', 'Maps API'],
-      link: '#',
-      github: '#'
+      technologies: ['Flutter', 'Dart', 'Supabase', 'Maps API'],
+      liveLink: '#',
+      codeLink: '#'
     },
     {
       id: 4,
       title: 'Prayer Posture Validator',
       description: 'AI-powered application using machine learning to validate and provide feedback on prayer postures.',
       image: '🤖',
-      tech: ['Python', 'TensorFlow', 'React', 'OpenCV'],
-      link: '#',
-      github: '#'
+      technologies: ['Python', 'TensorFlow', 'React', 'OpenCV'],
+      liveLink: '#',
+      codeLink: '#'
     },
     {
       id: 5,
       title: 'AI Knowledge Base Chatbot',
       description: 'Custom ChatGPT-powered chatbot trained on client documents and FAQs for intelligent customer support.',
       image: '💬',
-      tech: ['OpenAI', 'LangChain', 'RAG', 'Python', 'React'],
-      link: '#',
-      github: '#'
+      technologies: ['OpenAI', 'LangChain', 'RAG', 'Python', 'React'],
+      liveLink: '#',
+      codeLink: '#'
     },
     {
       id: 6,
       title: 'E-Commerce Platform',
       description: 'Full-featured e-commerce platform with product catalog, shopping cart, and secure payment integration.',
       image: '🛒',
-      tech: ['Next.js', 'Stripe', 'MongoDB', 'Supabase'],
-      link: '#',
-      github: '#'
+      technologies: ['Next.js', 'Stripe', 'MongoDB', 'Supabase'],
+      liveLink: '#',
+      codeLink: '#'
     }
   ]
+
+  const displayProjects = projects.length > 0 ? projects : defaultProjects
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -106,7 +130,7 @@ const Projects = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {projects.map((project) => (
+          {displayProjects.map((project) => (
             <motion.div
               key={project.id}
               variants={itemVariants}
@@ -132,7 +156,7 @@ const Projects = () => {
                 {/* Tech Stack */}
                 <div className="mb-4">
                   <div className="flex flex-wrap gap-2">
-                    {project.tech.map((tech, idx) => (
+                    {(project.technologies || []).map((tech, idx) => (
                       <span
                         key={idx}
                         className="px-2 py-1 text-xs rounded bg-primary/10 text-primary border border-primary/30 font-semibold"
@@ -146,7 +170,7 @@ const Projects = () => {
                 {/* Links */}
                 <div className="flex gap-4">
                   <motion.a
-                    href={project.link}
+                    href={project.liveLink || '#'}
                     whileHover={{ x: 3 }}
                     className="flex items-center gap-2 text-primary hover:text-secondary transition-colors font-semibold text-sm"
                   >
@@ -154,7 +178,7 @@ const Projects = () => {
                     Live
                   </motion.a>
                   <motion.a
-                    href={project.github}
+                    href={project.codeLink || '#'}
                     whileHover={{ x: 3 }}
                     className="flex items-center gap-2 text-primary hover:text-secondary transition-colors font-semibold text-sm"
                   >

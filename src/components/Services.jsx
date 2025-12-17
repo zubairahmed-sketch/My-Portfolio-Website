@@ -1,17 +1,39 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { FiArrowRight, FiGlobe } from 'react-icons/fi'
 import { SiOpenai } from 'react-icons/si'
 import { motion } from 'framer-motion'
 
 const Services = () => {
-  const services = [
+  const [services, setServices] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchServices()
+  }, [])
+
+  const fetchServices = async () => {
+    try {
+      const response = await fetch('/api/services')
+      const data = await response.json()
+      if (data.success) {
+        setServices(data.data)
+      }
+    } catch (error) {
+      console.error('Failed to fetch services:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Fallback services if database is empty
+  const defaultServices = [
     {
       id: 1,
       title: 'Full Stack Web Development',
       description: 'Modern, scalable websites using React, Next.js, Node.js & MongoDB',
       icon: FiGlobe,
       color: 'from-primary to-blue-500',
-      tech: ['React', 'Next.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
+      technologies: ['React', 'Next.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
       link: 'https://www.fiverr.com/s/2KBkYQk'
     },
     {
@@ -20,7 +42,7 @@ const Services = () => {
       description: 'Custom ChatGPT-powered chatbots & AI software solutions',
       icon: SiOpenai,
       color: 'from-secondary to-pink-500',
-      tech: ['OpenAI', 'LangChain', 'RAG', 'Dialogflow', 'Python'],
+      technologies: ['OpenAI', 'LangChain', 'RAG', 'Dialogflow', 'Python'],
       link: 'https://www.fiverr.com/s/42wQPXm'
     },
     {
@@ -29,7 +51,7 @@ const Services = () => {
       description: 'AI-powered chatbots trained on your documents and FAQs',
       icon: SiOpenai,
       color: 'from-yellow-500 to-orange-500',
-      tech: ['RAG', 'LangChain', 'Vector DB', 'OpenAI', 'React'],
+      technologies: ['RAG', 'LangChain', 'Vector DB', 'OpenAI', 'React'],
       link: 'https://www.fiverr.com/s/pdb5Djy'
     },
     {
@@ -38,10 +60,12 @@ const Services = () => {
       description: 'Robust backend solutions with Java, data structures & databases',
       icon: FiGlobe,
       color: 'from-green-500 to-emerald-500',
-      tech: ['Java', 'Data Structures', 'JDBC', 'OOP', 'PostgreSQL'],
+      technologies: ['Java', 'Data Structures', 'JDBC', 'OOP', 'PostgreSQL'],
       link: '#contact'
     }
   ]
+
+  const displayServices = services.length > 0 ? services : defaultServices
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -89,8 +113,8 @@ const Services = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 gap-8"
         >
-          {services.map((service) => {
-            const IconComponent = service.icon
+          {displayServices.map((service) => {
+            const IconComponent = service.icon || FiGlobe
             return (
               <motion.div
                 key={service.id}
@@ -124,7 +148,7 @@ const Services = () => {
                   <div className="mb-6">
                     <p className="text-sm text-primary font-semibold mb-2">Technologies Used:</p>
                     <div className="flex flex-wrap gap-2">
-                      {service.tech.map((tech, idx) => (
+                      {(service.technologies || service.tech || []).map((tech, idx) => (
                         <span
                           key={idx}
                           className="px-2 py-1 text-xs rounded bg-primary/10 text-primary border border-primary/30 font-semibold"
