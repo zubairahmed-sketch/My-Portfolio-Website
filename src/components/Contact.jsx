@@ -79,7 +79,10 @@ const Contact = () => {
         }, 5000)
       }
     } catch (err) {
-      console.error('EmailJS Error Details:', err)
+      console.error('EmailJS Error:', err)
+      console.error('Error message:', err.message)
+      console.error('Error text:', err.text)
+      console.error('Error status:', err.status)
       setError('Failed to send message. Please try again or contact directly.')
     } finally {
       setLoading(false)
