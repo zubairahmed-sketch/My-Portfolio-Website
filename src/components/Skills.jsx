@@ -1,8 +1,30 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 
 const Skills = () => {
-  const skillCategories = [
+  const [skills, setSkills] = useState([])
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    fetchSkills()
+  }, [])
+
+  const fetchSkills = async () => {
+    try {
+      const response = await fetch('/api/skills')
+      const data = await response.json()
+      if (data.success) {
+        setSkills(data.data)
+      }
+    } catch (error) {
+      console.error('Failed to fetch skills:', error)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  // Fallback skills if database is empty
+  const defaultSkillCategories = [
     {
       category: 'Frontend',
       skills: ['React.js', 'Next.js', 'JavaScript ES6', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS']
@@ -28,6 +50,8 @@ const Skills = () => {
       skills: ['Data Structures', 'OOP', 'Swing GUI', 'JDBC', 'Data Analysis']
     }
   ]
+
+  const displaySkills = skills.length > 0 ? skills : defaultSkillCategories
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -72,7 +96,7 @@ const Skills = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {skillCategories.map((category, idx) => (
+          {displaySkills.map((category, idx) => (
             <motion.div
               key={idx}
               variants={itemVariants}
@@ -81,7 +105,7 @@ const Skills = () => {
             >
               <h3 className="text-xl font-bold text-primary mb-4">{category.category}</h3>
               <div className="flex flex-wrap gap-3">
-                {category.skills.map((skill, i) => (
+                {(category.skills || []).map((skill, i) => (
                   <motion.span
                     key={i}
                     whileHover={{ scale: 1.05 }}
