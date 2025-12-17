@@ -1,7 +1,7 @@
-import dbConnect from '../lib/mongodb.js'
-import Project from '../lib/models/Project.js'
+const dbConnect = require('../lib/mongodb.js')
+const Project = require('../lib/models/Project.js')
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   await dbConnect()
 
   const { method } = req

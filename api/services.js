@@ -1,7 +1,7 @@
-import dbConnect from '../lib/mongodb.js'
-import Service from '../lib/models/Service.js'
+const dbConnect = require('../lib/mongodb.js')
+const Service = require('../lib/models/Service.js')
 
-export default async function handler(req, res) {
+module.exports = async function handler(req, res) {
   await dbConnect()
 
   const { method } = req
