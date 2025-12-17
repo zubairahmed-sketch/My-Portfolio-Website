@@ -23,35 +23,7 @@ const Skills = () => {
     }
   }
 
-  // Fallback skills if database is empty
-  const defaultSkillCategories = [
-    {
-      category: 'Frontend',
-      skills: ['React.js', 'Next.js', 'JavaScript ES6', 'TypeScript', 'HTML5', 'CSS3', 'Tailwind CSS']
-    },
-    {
-      category: 'Backend',
-      skills: ['Node.js', 'Express.js', 'REST API', 'API Integration', 'Authentication']
-    },
-    {
-      category: 'Databases',
-      skills: ['MongoDB', 'PostgreSQL', 'MySQL', 'Supabase']
-    },
-    {
-      category: 'AI & ML',
-      skills: ['ChatGPT/OpenAI', 'LangChain', 'RAG/LLMs', 'Dialogflow', 'Chatbot Development']
-    },
-    {
-      category: 'Languages',
-      skills: ['JavaScript', 'TypeScript', 'Java', 'Python']
-    },
-    {
-      category: 'Other',
-      skills: ['Data Structures', 'OOP', 'Swing GUI', 'JDBC', 'Data Analysis']
-    }
-  ]
 
-  const displaySkills = skills.length > 0 ? skills : defaultSkillCategories
 
   const containerVariants = {
     hidden: { opacity: 0 },
@@ -96,7 +68,7 @@ const Skills = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {displaySkills.map((category, idx) => (
+          {skills.map((category, idx) => (
             <motion.div
               key={idx}
               variants={itemVariants}

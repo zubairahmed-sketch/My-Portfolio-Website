@@ -65,7 +65,7 @@ const Services = () => {
     }
   ]
 
-  const displayServices = services.length > 0 ? services : defaultServices
+  const displayServices = services
 
   const containerVariants = {
     hidden: { opacity: 0 },

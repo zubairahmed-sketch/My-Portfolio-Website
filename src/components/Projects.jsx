@@ -82,7 +82,7 @@ const Projects = () => {
     }
   ]
 
-  const displayProjects = projects.length > 0 ? projects : defaultProjects
+  const displayProjects = projects
 
   const containerVariants = {
     hidden: { opacity: 0 },
