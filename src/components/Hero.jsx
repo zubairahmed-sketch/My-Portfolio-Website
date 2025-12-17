@@ -132,7 +132,7 @@ const Hero = () => {
             <img
               src="/profile-pic.png"
               alt="Zubair Ahmed - Profile Picture"
-              className="w-full max-w-lg h-auto rounded-3xl shadow-2xl"
+              className="w-full max-w-lg h-auto rounded-3xl shadow-3xl"
             />
           </motion.div>
         </div>
