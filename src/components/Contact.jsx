@@ -64,7 +64,8 @@ const Contact = () => {
             {
               from_name: formData.name,
               from_email: formData.email,
-              subject: formData.subject
+              subject: formData.subject,
+              to_email: formData.email  // Send auto-reply to visitor's email
             }
           )
         } catch (autoReplyError) {
