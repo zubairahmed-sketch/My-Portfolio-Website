@@ -1,5 +1,5 @@
-const dbConnect = require('../lib/mongodb.js')
-const Skill = require('../lib/models/Skill.js')
+const dbConnect = require('../lib/mongodb.cjs')
+const Skill = require('../lib/models/Skill.cjs')
 
 module.exports = async function handler(req, res) {
   await dbConnect()

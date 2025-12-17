@@ -1,5 +1,5 @@
-const dbConnect = require('../lib/mongodb.js')
-const Service = require('../lib/models/Service.js')
+const dbConnect = require('../lib/mongodb.cjs')
+const Service = require('../lib/models/Service.cjs')
 
 module.exports = async function handler(req, res) {
   await dbConnect()
