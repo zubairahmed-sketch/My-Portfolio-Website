@@ -1,7 +1,7 @@
-const dbConnect = require('../lib/mongodb.cjs')
-const Project = require('../lib/models/Project.cjs')
+import dbConnect from '../lib/mongodb.js'
+import Service from '../lib/models/Service.js'
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   await dbConnect()
 
   const { method } = req
@@ -9,8 +9,8 @@ module.exports = async function handler(req, res) {
   switch (method) {
     case 'GET':
       try {
-        const projects = await Project.find({}).sort({ createdAt: -1 })
-        res.status(200).json({ success: true, data: projects })
+        const services = await Service.find({}).sort({ createdAt: -1 })
+        res.status(200).json({ success: true, data: services })
       } catch (error) {
         res.status(400).json({ success: false, error: error.message })
       }
@@ -18,8 +18,8 @@ module.exports = async function handler(req, res) {
 
     case 'POST':
       try {
-        const project = await Project.create(req.body)
-        res.status(201).json({ success: true, data: project })
+        const service = await Service.create(req.body)
+        res.status(201).json({ success: true, data: service })
       } catch (error) {
         res.status(400).json({ success: false, error: error.message })
       }

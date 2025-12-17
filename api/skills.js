@@ -1,7 +1,7 @@
-const dbConnect = require('../lib/mongodb.cjs')
-const Skill = require('../lib/models/Skill.cjs')
+import dbConnect from '../lib/mongodb.js'
+import Skill from '../lib/models/Skill.js'
 
-module.exports = async function handler(req, res) {
+export default async function handler(req, res) {
   await dbConnect()
 
   const { method } = req
