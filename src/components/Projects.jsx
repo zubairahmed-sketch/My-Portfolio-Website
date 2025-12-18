@@ -12,7 +12,7 @@ const Projects = () => {
 
   const fetchProjects = async () => {
     try {
-      const response = await fetch('/api/projects')
+      const response = await fetch('https://portfolio-backend-production-4eaa.up.railway.app/api/projects')
       const data = await response.json()
       if (data.success) {
         setProjects(data.data)

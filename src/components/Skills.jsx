@@ -11,7 +11,7 @@ const Skills = () => {
 
   const fetchSkills = async () => {
     try {
-      const response = await fetch('/api/skills')
+      const response = await fetch('https://portfolio-backend-production-4eaa.up.railway.app/api/skills')
       const data = await response.json()
       if (data.success) {
         setSkills(data.data)
