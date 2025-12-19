@@ -31,7 +31,7 @@ const About = () => {
             </p>
 
             <p className="text-lg text-gray-300 leading-relaxed mb-6">
-              My journey spans 3 years of experience with <span className="text-primary font-semibold">Data Structures & Java</span> programming, 2 years of <span className="text-primary font-semibold">Full Stack Web Development</span>, and 1 year specializing in <span className="text-primary font-semibold">AI Chatbot Development</span>.
+              My journey spans 3 years of experience with <span className="text-primary font-semibold">Data Structures & Java</span> programming, 2 years of <span className="text-primary font-semibold">Full Stack Web Development</span>, 1 year of <span className="text-primary font-semibold">Flutter Mobile App Development</span>, and 1 year specializing in <span className="text-primary font-semibold">AI Chatbot Development</span>.
             </p>
 
             <p className="text-lg text-gray-300 leading-relaxed">
