@@ -144,6 +144,7 @@ const Projects = () => {
                 whileHover={{ opacity: 1 }}
                 className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 pointer-events-none"
               />
+            </motion.div>
             )
           })}
         </motion.div>
