@@ -114,7 +114,8 @@ const Services = () => {
           className="grid md:grid-cols-2 gap-8"
         >
           {displayServices.map((service) => {
-            const IconComponent = service.icon || FiGlobe
+            const isEmoji = typeof service.icon === 'string'
+            const IconComponent = typeof service.icon !== 'string' ? (service.icon || FiGlobe) : null
             return (
               <motion.div
                 key={service.id}
@@ -131,7 +132,11 @@ const Services = () => {
                     whileHover={{ rotate: 10, scale: 1.1 }}
                     className={`inline-flex items-center justify-center w-14 h-14 rounded-lg bg-gradient-to-br ${service.color} mb-6`}
                   >
-                    <IconComponent size={28} className="text-white" />
+                    {isEmoji ? (
+                      <span className="text-2xl">{service.icon}</span>
+                    ) : (
+                      <IconComponent size={28} className="text-white" />
+                    )}
                   </motion.div>
 
                   {/* Title */}
