@@ -25,46 +25,6 @@ const Services = () => {
     }
   }
 
-  // Fallback services if database is empty
-  const defaultServices = [
-    {
-      id: 1,
-      title: 'Full Stack Web Development',
-      description: 'Modern, scalable websites using React, Next.js, Node.js & MongoDB',
-      icon: FiGlobe,
-      color: 'from-primary to-blue-500',
-      technologies: ['React', 'Next.js', 'Node.js', 'MongoDB', 'Tailwind CSS'],
-      link: 'https://www.fiverr.com/s/2KBkYQk'
-    },
-    {
-      id: 2,
-      title: 'AI Chatbot Development',
-      description: 'Custom ChatGPT-powered chatbots & AI software solutions',
-      icon: SiOpenai,
-      color: 'from-secondary to-pink-500',
-      technologies: ['OpenAI', 'LangChain', 'RAG', 'Dialogflow', 'Python'],
-      link: 'https://www.fiverr.com/s/42wQPXm'
-    },
-    {
-      id: 3,
-      title: 'Knowledge Base Chatbot',
-      description: 'AI-powered chatbots trained on your documents and FAQs',
-      icon: SiOpenai,
-      color: 'from-yellow-500 to-orange-500',
-      technologies: ['RAG', 'LangChain', 'Vector DB', 'OpenAI', 'React'],
-      link: 'https://www.fiverr.com/s/pdb5Djy'
-    },
-    {
-      id: 4,
-      title: 'Java & Backend Development',
-      description: 'Robust backend solutions with Java, data structures & databases',
-      icon: FiGlobe,
-      color: 'from-green-500 to-emerald-500',
-      technologies: ['Java', 'Data Structures', 'JDBC', 'OOP', 'PostgreSQL'],
-      link: '#contact'
-    }
-  ]
-
   const displayServices = services
 
   const containerVariants = {
@@ -114,30 +74,26 @@ const Services = () => {
           className="grid md:grid-cols-2 gap-8"
         >
           {displayServices.map((service) => {
-            const isEmoji = typeof service.icon === 'string'
-            const IconComponent = typeof service.icon !== 'string' ? (service.icon || FiGlobe) : null
             return (
               <motion.div
-                key={service.id}
+                key={service._id || service.id}
                 variants={itemVariants}
                 whileHover={{ y: -10 }}
                 className="group p-8 bg-gradient-to-br from-dark/50 to-dark/20 rounded-xl border border-primary/30 hover:border-primary/60 transition-all overflow-hidden"
               >
                 {/* Background Gradient */}
-                <div className={`absolute inset-0 bg-gradient-to-br ${service.color} opacity-0 group-hover:opacity-10 transition-opacity duration-300`}></div>
+                <div className="absolute inset-0 bg-gradient-to-br from-primary/10 to-secondary/10 opacity-0 group-hover:opacity-20 transition-opacity duration-300"></div>
 
                 <div className="relative z-10">
                   {/* Icon */}
-                  <motion.div
-                    whileHover={{ rotate: 10, scale: 1.1 }}
-                    className={`inline-flex items-center justify-center w-14 h-14 rounded-lg bg-gradient-to-br ${service.color} mb-6`}
-                  >
-                    {isEmoji ? (
+                  {service.icon && (
+                    <motion.div
+                      whileHover={{ rotate: 10, scale: 1.1 }}
+                      className="inline-flex items-center justify-center w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-secondary mb-6"
+                    >
                       <span className="text-2xl">{service.icon}</span>
-                    ) : (
-                      <IconComponent size={28} className="text-white" />
-                    )}
-                  </motion.div>
+                    </motion.div>
+                  )}
 
                   {/* Title */}
                   <h3 className="text-2xl font-bold mb-3 group-hover:text-primary transition-colors">

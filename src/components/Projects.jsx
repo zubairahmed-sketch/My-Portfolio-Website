@@ -24,64 +24,6 @@ const Projects = () => {
     }
   }
 
-  // Fallback projects if database is empty
-  const defaultProjects = [
-    {
-      id: 1,
-      title: 'Restaurant Management System',
-      description: 'A comprehensive Java desktop application for managing restaurant operations including inventory, orders, and staff management with MySQL database.',
-      image: '🍽️',
-      technologies: ['Java', 'Swing', 'JDBC', 'MySQL'],
-      liveLink: '#',
-      codeLink: '#'
-    },
-    {
-      id: 2,
-      title: 'Wapda Management System',
-      description: 'Java desktop application for utility management handling electricity distribution, billing, and customer services with robust MySQL backend.',
-      image: '⚡',
-      technologies: ['Java', 'Swing', 'JDBC', 'MySQL'],
-      liveLink: '#',
-      codeLink: '#'
-    },
-    {
-      id: 3,
-      title: 'Civic Eye Issue Reporting',
-      description: 'Flutter mobile application for community-driven civic issue reporting and tracking with Supabase backend for real-time updates.',
-      image: '👁️',
-      technologies: ['Flutter', 'Dart', 'Supabase', 'Maps API'],
-      liveLink: '#',
-      codeLink: '#'
-    },
-    {
-      id: 4,
-      title: 'Prayer Posture Validator',
-      description: 'AI-powered application using machine learning to validate and provide feedback on prayer postures.',
-      image: '🤖',
-      technologies: ['Python', 'TensorFlow', 'React', 'OpenCV'],
-      liveLink: '#',
-      codeLink: '#'
-    },
-    {
-      id: 5,
-      title: 'AI Knowledge Base Chatbot',
-      description: 'Custom ChatGPT-powered chatbot trained on client documents and FAQs for intelligent customer support.',
-      image: '💬',
-      technologies: ['OpenAI', 'LangChain', 'RAG', 'Python', 'React'],
-      liveLink: '#',
-      codeLink: '#'
-    },
-    {
-      id: 6,
-      title: 'E-Commerce Platform',
-      description: 'Full-featured e-commerce platform with product catalog, shopping cart, and secure payment integration.',
-      image: '🛒',
-      technologies: ['Next.js', 'Stripe', 'MongoDB', 'Supabase'],
-      liveLink: '#',
-      codeLink: '#'
-    }
-  ]
-
   const displayProjects = projects
 
   const containerVariants = {
