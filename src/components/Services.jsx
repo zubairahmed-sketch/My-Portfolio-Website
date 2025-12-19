@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { FiArrowRight, FiGlobe } from 'react-icons/fi'
-import { SiOpenai } from 'react-icons/si'
+import { FiArrowRight } from 'react-icons/fi'
 import { motion } from 'framer-motion'
 
 const Services = () => {

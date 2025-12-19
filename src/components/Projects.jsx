@@ -72,9 +72,11 @@ const Projects = () => {
           viewport={{ once: true }}
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {displayProjects.map((project) => (
+          {displayProjects.map((project) => {
+            const key = project._id || project.id || Math.random()
+            return (
             <motion.div
-              key={project.id}
+              key={key}
               variants={itemVariants}
               whileHover={{ y: -10 }}
               className="group relative overflow-hidden rounded-xl border border-primary/30 hover:border-primary/60 transition-all bg-gradient-to-br from-dark/50 to-dark/20"
@@ -136,8 +138,8 @@ const Projects = () => {
                 whileHover={{ opacity: 1 }}
                 className="absolute inset-0 bg-gradient-to-r from-primary/10 to-secondary/10 pointer-events-none"
               />
-            </motion.div>
-          ))}
+            )
+          })}
         </motion.div>
       </div>
     </section>
