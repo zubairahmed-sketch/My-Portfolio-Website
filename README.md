@@ -131,8 +131,8 @@ This project is open source and available under the MIT License.
 
 **Zubair Ahmed**
 - Full Stack Web Developer & AI/ML Specialist
-- Email: zubairahmed@example.com
-- Portfolio: https://your-portfolio.com
+- Email: za0183625@gmail.com
+- Portfolio: https://my-portfolio-website-git-main-zubair-ahmeds-projects-3ef6df70.vercel.app
 
 ---
 
