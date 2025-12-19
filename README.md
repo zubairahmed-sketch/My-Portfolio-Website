@@ -6,7 +6,8 @@ A modern, interactive portfolio website built with React, Vite, and Tailwind CSS
 
 - **Modern Design**: Sleek, gradient-based UI with smooth animations
 - **Fully Responsive**: Optimized for all devices (mobile, tablet, desktop)
-- **Smooth Animations**: Framer Motion animations for engaging interactions
+- **Dynamic Content**: Skills, services, and projects pulled live from MongoDB via the Railway backend
+- **Email Automation**: EmailJS-powered contact form with instant notifications and auto-reply
 - **Dark Theme**: Eye-catching dark mode with purple/blue gradient accents
 - **Fast Performance**: Built with Vite for lightning-fast load times
 - **SEO Friendly**: Optimized meta tags and semantic HTML
@@ -17,19 +18,19 @@ A modern, interactive portfolio website built with React, Vite, and Tailwind CSS
 2. **Hero Section** - Eye-catching intro with CTA buttons and social links
 3. **About** - Personal bio, experience summary, and key statistics
 4. **Skills** - Comprehensive skill categories with proficiency levels
-5. **Services** - Detailed service offerings with technology stacks
-6. **Projects** - Featured portfolio projects with descriptions and links
+5. **Services** - Dynamic service offerings sourced from MongoDB
+6. **Projects** - Featured portfolio projects with live data, descriptions, and links
 7. **Contact** - Contact form and direct communication channels
 8. **Footer** - Quick links and social media connections
 
 ## 🛠️ Tech Stack
 
-- **Frontend**: React 18
-- **Build Tool**: Vite
-- **Styling**: Tailwind CSS
+- **Frontend**: React 18 + Vite + Tailwind CSS
 - **Animations**: Framer Motion
 - **Icons**: React Icons
-- **PostCSS**: For advanced CSS processing
+- **Backend API**: Node.js / Express hosted on Railway
+- **Database**: MongoDB Atlas
+- **Email**: EmailJS (contact form + auto response)
 
 ## 📦 Installation
 
@@ -44,18 +45,26 @@ A modern, interactive portfolio website built with React, Vite, and Tailwind CSS
    npm install
    ```
 
-2. **Start Development Server**
+2. **Configure Environment Variables**
+   Create `.env.local` with:
+   ```env
+   VITE_EMAILJS_SERVICE_ID=your_service_id
+   VITE_EMAILJS_TEMPLATE_ID=your_template_id
+   VITE_EMAILJS_USER_ID=your_public_key
+   ```
+
+3. **Start Development Server**
    ```bash
    npm run dev
    ```
    The website will open automatically at `http://localhost:3000`
 
-3. **Build for Production**
+4. **Build for Production**
    ```bash
    npm run build
    ```
 
-4. **Preview Production Build**
+5. **Preview Production Build**
    ```bash
    npm run preview
    ```
@@ -81,13 +90,8 @@ src/
 ## ✨ Customization
 
 ### Update Personal Information
-Edit the content directly in each component:
-- `Hero.jsx` - Main headline and CTA
-- `About.jsx` - Bio and statistics
-- `Skills.jsx` - Add/remove skill categories
-- `Services.jsx` - Service offerings
-- `Projects.jsx` - Portfolio projects
-- `Contact.jsx` - Contact information
+- Static copy lives inside the relevant components (Hero, About, Contact, etc.)
+- Dynamic collections (skills, services, projects) are stored in MongoDB — update the documents and the site refreshes automatically
 
 ### Change Colors
 Modify Tailwind config in `tailwind.config.js`:
@@ -108,17 +112,16 @@ Update the social media links in:
 
 ## 🌐 Deployment
 
-### Deploy to Vercel (Recommended)
-```bash
-npm run build
-# Push to GitHub and connect to Vercel
-```
+### Deploy the Frontend (Vercel Recommended)
+1. Push the repo to GitHub
+2. Import the project in Vercel
+3. Add the EmailJS environment variables in Vercel project settings
+4. Trigger a deploy (`npm run build` is handled automatically)
 
-### Deploy to Netlify
-```bash
-npm run build
-# Drag and drop the 'dist' folder to Netlify
-```
+### Deploy the Backend (Railway)
+The companion backend lives in the `Portfolio-Backend` repository. Deploy it on Railway and configure:
+- `MONGODB_URI` – MongoDB Atlas connection string
+- `PORT` – optional port (defaults to 8080)
 
 ## 📝 License
 
