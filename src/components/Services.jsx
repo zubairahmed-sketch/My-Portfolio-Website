@@ -15,7 +15,12 @@ const Services = () => {
       const response = await fetch('https://portfolio-backend-production-4eaa.up.railway.app/api/services')
       const data = await response.json()
       if (data.success) {
-        setServices(data.data)
+        const sanitized = (data.data || []).map((service, index) => ({
+          ...service,
+          iconEmoji: typeof service.icon === 'string' ? service.icon : '',
+          key: service._id || service.id || `service-${index}`,
+        }))
+        setServices(sanitized)
       }
     } catch (error) {
       console.error('Failed to fetch services:', error)
@@ -75,7 +80,7 @@ const Services = () => {
           {displayServices.map((service) => {
             return (
               <motion.div
-                key={service._id || service.id}
+                key={service.key}
                 variants={itemVariants}
                 whileHover={{ y: -10 }}
                 className="group p-8 bg-gradient-to-br from-dark/50 to-dark/20 rounded-xl border border-primary/30 hover:border-primary/60 transition-all overflow-hidden"
@@ -85,12 +90,14 @@ const Services = () => {
 
                 <div className="relative z-10">
                   {/* Icon */}
-                  {service.icon && (
+                  {service.iconEmoji && (
                     <motion.div
                       whileHover={{ rotate: 10, scale: 1.1 }}
                       className="inline-flex items-center justify-center w-14 h-14 rounded-lg bg-gradient-to-br from-primary to-secondary mb-6"
                     >
-                      <span className="text-2xl">{service.icon}</span>
+                      <span className="text-2xl" role="img" aria-hidden="true">
+                        {service.iconEmoji}
+                      </span>
                     </motion.div>
                   )}
 

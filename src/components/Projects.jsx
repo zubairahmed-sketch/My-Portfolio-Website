@@ -15,7 +15,12 @@ const Projects = () => {
       const response = await fetch('https://portfolio-backend-production-4eaa.up.railway.app/api/projects')
       const data = await response.json()
       if (data.success) {
-        setProjects(data.data)
+        const sanitized = (data.data || []).map((project, index) => ({
+          ...project,
+          emoji: typeof project.image === 'string' ? project.image : '',
+          key: project._id || project.id || `project-${index}`,
+        }))
+        setProjects(sanitized)
       }
     } catch (error) {
       console.error('Failed to fetch projects:', error)
@@ -73,10 +78,9 @@ const Projects = () => {
           className="grid md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {displayProjects.map((project) => {
-            const key = project._id || project.id || Math.random()
             return (
             <motion.div
-              key={key}
+                key={project.key}
               variants={itemVariants}
               whileHover={{ y: -10 }}
               className="group relative overflow-hidden rounded-xl border border-primary/30 hover:border-primary/60 transition-all bg-gradient-to-br from-dark/50 to-dark/20"
@@ -85,7 +89,9 @@ const Projects = () => {
               <div className="p-6 h-full flex flex-col">
                 {/* Icon/Image */}
                 <div className="text-6xl mb-4 group-hover:scale-110 transition-transform duration-300">
-                  {project.image}
+                  <span role="img" aria-hidden="true">
+                    {project.emoji}
+                  </span>
                 </div>
 
                 {/* Content */}
